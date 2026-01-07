@@ -18,8 +18,8 @@ export class LoginPage {
   }
 
   async searchForItem(item: string) {
-    await this.page.fill('#gh-ac', item);
-    await this.page.click('#gh-btn');
+    await this.page.fill('#gh-ac', item); 
+    await this.page.click('.gh-search-button__label'); //click on search button
     await expect(this.page.locator('.srp-controls__count-heading')).toBeVisible();
   }
 }

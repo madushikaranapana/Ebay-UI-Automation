@@ -1,8 +1,17 @@
-
-# Playwright
 node_modules/
 /test-results/
 /playwright-report/
+/reports/
+allure-results/
+allure-report/
 /blob-report/
+.auth/
 /playwright/.cache/
-/playwright/.auth/
+.env
+*.log
+
+# Other possible build or temporary directories
+/dist/
+/build/
+/tmp/
+/coverage/

@@ -1,0 +1,35 @@
+name: Report Notifcation Email
+run-name: Report Notifcation Email
+on:
+  #schedule:
+  #  - cron: '30 3 * * 5' # Every Friday at 9:00 AM - Srilanka Time
+  workflow_dispatch: {}
+
+jobs:
+  send_email:
+    name: Report Notifcation Email
+    runs-on: ubuntu-latest
+    steps: 
+        - name: Send mail
+          uses: dawidd6/action-send-mail@v4
+          with:
+                server_address: smtp.gmail.com
+                server_port: 465
+                secure: true
+                # username: ${{secrets.MAIL_USERNAME}}
+                # password: ${{secrets.MAIL_PASSWORD}}
+                subject: Weekly Test Report - SkyU UI Automation
+                to: madushikaranapana113@gmail.com
+                from:  QA Team
+                cc: madushikaranapana113@gmail.com
+                body: |
+                  Dear Receiver,
+      
+                  The latest Allure report has been generated and is available at the following link:
+                  https://github.com/Ebay-UI-Automation/
+      
+                  Please review the test results and let us know if there are any concerns.
+      
+                  Regards,
+                  QA Team
+                

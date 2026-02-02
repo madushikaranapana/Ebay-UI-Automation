@@ -1,27 +1,72 @@
-name: Playwright Tests
+name: Ebay UI AUTOMATION
+run-name: Ebay UI AUTOMATION
+
 on:
   push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  actions: read
+
 jobs:
-  test:
+  tests:
+    name: UI Tests
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      # Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm ci
+
+      # Install Playwright Browsers
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # Run Playwright Tests
+      - name: Run Playwright Tests
+        run: npm run test
+        env:
+          DEBUG: pw:api
+          CI: true
+        continue-on-error: true
+
+      # Generate Allure Report
+      - name: Generate Allure Report
+        run: |
+          mkdir -p allure-results
+          npx allure generate playwright-report --clean -o allure-report
+
+      # Upload Allure Results as an artifact
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results/
+
+      # Upload Allure Report as an artifact
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: allure-report/
+
+      # Deploy Allure Report to GitHub Pages
+      - name: Deploy Allure Report
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages

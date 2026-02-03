@@ -19,17 +19,17 @@ jobs:
           server_address: smtp.gmail.com
           server_port: 465
           secure: true
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
+          username: ${{ MAILUSERNAME }}
+          password: ${{ MAILPASSWORD }}
           subject: "Weekly Test Report - SkyU UI Automation"
           to: madushikaranapana113@gmail.com
           cc: madushikaranapana113@gmail.com
-          from: ${{ secrets.MAIL_USERNAME }}
+          from: ${{ MAILUSERNAME }}
           body: |
             Dear Receiver,
 
             The latest Allure report has been generated and is available at the following link:
-            https://<your-github-username>.github.io/<repo-name>/
+            https://madushikaranapana.github.io/Ebay-UI-Automation/
 
             Please review the test results and let us know if there are any concerns.
 

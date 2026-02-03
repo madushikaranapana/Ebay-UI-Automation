@@ -21,7 +21,7 @@ jobs:
           secure: true
           username: ${{ secrets.MAILUSERNAME }}
           password: ${{ secrets.MAILPASSWORD }}
-          subject: "Weekly Test Report - eBay UI Automation"
+          subject: "Test Report - eBay UI Automation"
           to: madushikaranapana113@gmail.com
           cc: madushikaranapana113@gmail.com
           from: ${{ secrets.MAILUSERNAME }}

@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { VerifyRelatedItemsPage } from '../Pages/Verify Display of Related Products Section';
+import { LoginPage } from '../pages/loginPage';
+import { VerifyRelatedItemsPage } from '../pages/verify Display of Related Products Section';
 
 test.describe('eBay Automation Tests', () => {
   let loginPage: LoginPage;

@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ProductPage } from '../Pages/ProductPage';
+import { ProductPage } from '../pages/productPage';
 
 test.describe('Related Products - Layout & Visual Validation', () => {
 
